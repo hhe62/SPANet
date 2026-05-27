@@ -1,0 +1,70 @@
+# ttHH dileptonic event topology.
+# Companion to SL.yaml: both tops decay leptonically (lt1, lt2), plus
+# the two Higgses (each H -> bb). lt1 / lt2 are symmetric under
+# exchange, h1 / h2 are symmetric under exchange, and each Higgs's
+# two b's are symmetric internally. No hadronic top, so no q1 / q2.
+
+INPUTS:
+  SEQUENTIAL:
+    Momenta:
+      mass: log_normalize
+      pt: log_normalize
+      eta: normalize
+
+      sin_phi: normalize
+      cos_phi: normalize
+
+      qtag: none
+      btag: none
+      etag: none
+      utag: none
+
+  GLOBAL:
+    Met:
+      met: log_normalize
+      sin_phi: normalize
+      cos_phi: normalize
+
+
+EVENT:
+  lt1:
+    - b
+
+  lt2:
+    - b
+
+  h1:
+    - b1
+    - b2
+
+  h2:
+    - b1
+    - b2
+
+
+PERMUTATIONS:
+    EVENT:
+      - [ lt1, lt2 ]
+      - [ h1,  h2  ]
+    h1:
+      - [ b1, b2 ]
+    h2:
+      - [ b1, b2 ]
+
+
+REGRESSIONS:
+  EVENT:
+    - neutrino1_eta
+    - neutrino1_px
+    - neutrino1_py
+    - neutrino1_pz
+    - neutrino2_eta
+    - neutrino2_px
+    - neutrino2_py
+    - neutrino2_pz
+    - log_invariant_mass
+
+
+CLASSIFICATIONS:
+  EVENT:
+    - signal
