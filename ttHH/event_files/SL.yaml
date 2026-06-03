@@ -55,12 +55,12 @@ PERMUTATIONS:
 
 
 REGRESSIONS:
-  EVENT:
-    - neutrino_eta
-    - neutrino_px
-    - neutrino_py
-    - neutrino_pz
-    - log_invariant_mass
+  # EVENT:
+  #   - neutrino_eta
+  #   - neutrino_px
+  #   - neutrino_py
+  #   - neutrino_pz
+  #   - log_invariant_mass
 
 
 CLASSIFICATIONS:
