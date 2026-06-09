@@ -152,10 +152,19 @@ class JetReconstructionValidation(JetReconstructionNetwork):
             self.log(f"REGRESSION/{key}_absolute_error", absolute_error.mean(), sync_dist=True)
 
             percent_deviation = delta / regression_targets[key]
-            self.logger.experiment.add_histogram(f"REGRESSION/{key}_percent_deviation", percent_deviation, self.global_step)
+            # add_histogram raises "histogram is empty" when every element of
+            # `percent_deviation` is nan/inf (e.g. all targets in a batch are
+            # 0 or nan-masked). Skip and announce rather than crash the val loop.
+            try:
+                self.logger.experiment.add_histogram(f"REGRESSION/{key}_percent_deviation", percent_deviation, self.global_step)
+            except ValueError:
+                print(f"[skip-histogram] REGRESSION/{key}_percent_deviation: all values non-finite this batch")
 
             absolute_deviation = delta
-            self.logger.experiment.add_histogram(f"REGRESSION/{key}_absolute_deviation", absolute_deviation, self.global_step)
+            try:
+                self.logger.experiment.add_histogram(f"REGRESSION/{key}_absolute_deviation", absolute_deviation, self.global_step)
+            except ValueError:
+                print(f"[skip-histogram] REGRESSION/{key}_absolute_deviation: all values non-finite this batch")
 
         for key in classifications:
             accuracy = (classifications[key] == classification_targets[key])

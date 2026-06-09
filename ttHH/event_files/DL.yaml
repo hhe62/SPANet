@@ -11,19 +11,36 @@ INPUTS:
       pt: log_normalize
       eta: normalize
 
-      sin_phi: normalize
-      cos_phi: normalize
+      sin_phi: none
+      cos_phi: none
 
       qtag: none
       btag: none
       etag: none
       utag: none
 
+    # Selected leptons (combined muons + electrons, sorted by pT desc).
+    # DL events have exactly 2 real entries; SL events have 1. Adding
+    # this collection lets the assignment head correlate each leptonic
+    # top's b-jet with its lepton -- the missing input that capped
+    # Lt Purity in 2lt2h events at 0.44 in the no-lepton training.
+    # `is_mu`: 1 = muon, 0 = electron. `charge`: lepton sign, written
+    # as float for SPANet vector_float compat.
+    Lep:
+      pt: log_normalize
+      eta: normalize
+      sin_phi: none
+      cos_phi: none
+      charge: none
+      is_mu: none
+
   GLOBAL:
     Met:
       met: log_normalize
-      sin_phi: normalize
-      cos_phi: normalize
+      sin_phi: none
+      cos_phi: none
+    HT:
+      ht: log_normalize
 
 
 EVENT:
@@ -53,18 +70,19 @@ PERMUTATIONS:
 
 
 REGRESSIONS:
-  # EVENT:
-  #   - neutrino1_eta
-  #   - neutrino1_px
-  #   - neutrino1_py
-  #   - neutrino1_pz
-  #   - neutrino2_eta
-  #   - neutrino2_px
-  #   - neutrino2_py
-  #   - neutrino2_pz
-  #   - log_invariant_mass
+  EVENT:
+    - neutrino1_eta
+    - neutrino1_px
+    - neutrino1_py
+    - neutrino1_pz
+    - neutrino2_eta
+    - neutrino2_px
+    - neutrino2_py
+    - neutrino2_pz
+    - log_invariant_mass
 
 
 CLASSIFICATIONS:
   EVENT:
     - signal
+    - process_id
