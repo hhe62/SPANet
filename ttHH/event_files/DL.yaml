@@ -45,18 +45,18 @@ INPUTS:
 
 EVENT:
   lt1:
-    - b
+    - b: Momenta
 
   lt2:
-    - b
+    - b: Momenta
 
   h1:
-    - b1
-    - b2
+    - b1: Momenta
+    - b2: Momenta
 
   h2:
-    - b1
-    - b2
+    - b1: Momenta
+    - b2: Momenta
 
 
 PERMUTATIONS:
