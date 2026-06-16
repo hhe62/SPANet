@@ -38,6 +38,7 @@ def main(
 
         torch_script: bool,
         fp16: bool,
+        bf16: bool,
         verbose: bool,
         full_events: bool,
 
@@ -165,7 +166,7 @@ def main(
         accelerator="gpu" if options.num_gpu > 0 else "auto",
         devices=options.num_gpu if options.num_gpu > 0 else "auto",
         strategy="ddp" if options.num_gpu > 1 else "auto",
-        precision="16-mixed" if fp16 else "32-true",
+        precision="bf16-mixed" if bf16 else "16-mixed" if fp16 else "32-true",
 
         gradient_clip_val=options.gradient_clip if options.gradient_clip > 0 else None,
         max_epochs=epochs,
@@ -243,6 +244,9 @@ if __name__ == '__main__':
 
     parser.add_argument("-fp16", "--fp16", action="store_true",
                         help="Use Torch AMP for training.")
+
+    parser.add_argument("-bf16", "--bf16", action="store_true",
+                        help="Use bfloat16 mixed precision for training (Ampere/Hopper).")
 
     parser.add_argument("-v", "--verbose", action='store_true',
                         help="Output additional information to console and log.")

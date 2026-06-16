@@ -42,14 +42,14 @@
 
     "dataset_limit": 1.0,
     "train_validation_split": 0.95,
-    "batch_size": 4096,
+    "batch_size": 28000,
     "num_dataloader_workers": 16,
 
     "mask_sequence_vectors": true,
     "combine_pair_loss": "min",
     "optimizer": "AdamW",
     "focal_gamma": 1.0,
-    "learning_rate": 0.0015,
+    "learning_rate": 0.004,
     "learning_rate_cycles": 1,
     "learning_rate_warmup_epochs": 15.0,
 
