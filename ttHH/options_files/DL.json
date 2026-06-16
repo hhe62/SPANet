@@ -38,6 +38,7 @@
     "balance_jets": false,
     "partial_events": true,
     "balance_particles": true,
+    "balance_classifications": true,
 
     "dataset_limit": 1.0,
     "train_validation_split": 0.95,
@@ -47,13 +48,13 @@
     "mask_sequence_vectors": true,
     "combine_pair_loss": "min",
     "optimizer": "AdamW",
-    "focal_gamma": 0.0,
+    "focal_gamma": 1.0,
     "learning_rate": 0.0015,
     "learning_rate_cycles": 1,
     "learning_rate_warmup_epochs": 15.0,
 
     "assignment_loss_scale": 1.0,
-    "detection_loss_scale": 0.0,
+    "detection_loss_scale": 1.0,
     "kl_loss_scale": 0.0,
     "regression_loss_scale": 1.0,
     "classification_loss_scale": 1.0,

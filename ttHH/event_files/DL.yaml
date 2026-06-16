@@ -85,4 +85,4 @@ REGRESSIONS:
 CLASSIFICATIONS:
   EVENT:
     - signal
-    - process_id
+    - process_class     # 5-class super-group; one-word revert -> process_id
