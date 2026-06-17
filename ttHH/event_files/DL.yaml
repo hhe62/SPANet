@@ -46,9 +46,11 @@ INPUTS:
 EVENT:
   lt1:
     - b: Momenta
+    - lep: Lep
 
   lt2:
     - b: Momenta
+    - lep: Lep
 
   h1:
     - b1: Momenta
