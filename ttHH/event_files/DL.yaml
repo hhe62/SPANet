@@ -14,10 +14,17 @@ INPUTS:
       sin_phi: none
       cos_phi: none
 
-      qtag: none
       btag: none
-      etag: none
-      utag: none
+
+      # Per-jet pair-summary features (from draft/producers/pair_features.py).
+      # Each value is in jet i's slot but is computed from i's b-tagged
+      # partners, so SPANet's per-jet attention sees a different value
+      # in every slot -- unlike a GLOBAL scalar, which has no jet identity.
+      m_partner_drmin: log_normalize   # m_ij with the b-tagged j closest in ΔR
+      dR_partner_min:  normalize       # ΔR(i, that closest b-tagged j)
+      m_closest_125:   log_normalize   # m_ij minimising |m_ij - 125|
+      m_closest_91:    log_normalize   # m_ij minimising |m_ij - 91|
+      n_partner_higgs: none            # count of b-tag partners with m_ij in 125 ± 25
 
     # Selected leptons (combined muons + electrons, sorted by pT desc).
     # DL events have exactly 2 real entries; SL events have 1. Adding

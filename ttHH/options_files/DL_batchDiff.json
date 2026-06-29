@@ -41,7 +41,7 @@
     "balance_classifications": true,
 
     "dataset_limit": 1.0,
-    "train_validation_split": 0.95,
+    "train_validation_split": 0.9,
     "batch_size": 8192,
     "num_dataloader_workers": 16,
 
@@ -56,7 +56,7 @@
     "assignment_loss_scale": 1.0,
     "detection_loss_scale": 1.0,
     "kl_loss_scale": 0.0,
-    "regression_loss_scale": 1.0,
+    "regression_loss_scale": 0.2,
     "classification_loss_scale": 1.0,
 
     "l2_penalty": 0.0002,
