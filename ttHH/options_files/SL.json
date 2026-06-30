@@ -54,7 +54,7 @@
     "learning_rate_warmup_epochs": 15.0,
 
     "assignment_loss_scale": 1.0,
-    "detection_loss_scale": 1.0,
+    "detection_loss_scale": 0.1,
     "kl_loss_scale": 0.0,
     "regression_loss_scale": 0.2,
     "classification_loss_scale": 1.0,
