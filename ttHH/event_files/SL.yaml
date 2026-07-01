@@ -25,6 +25,12 @@ INPUTS:
       m_closest_91:    log_normalize   # m_ij minimising |m_ij - 91|
       n_partner_higgs: none            # count of b-tag partners with m_ij in 125 ± 25
 
+      # Per-jet endpoint asymmetry (m - a)/(m + a) of m(jet, lepton), with
+      # a = sqrt(m_t^2 - m_W^2) = 152.75 GeV: a top b (with its lepton) is < 0,
+      # a Higgs b can exceed 0, bounded to (-1, 1). `none` keeps 0 at the
+      # endpoint. SL has 1 lepton, so min == max -- only m_lep_min is listed.
+      m_lep_min: none
+
     # Selected leptons (combined muons + electrons, sorted by pT desc).
     # SL events have exactly 1 real entry. Adding this collection lets
     # the assignment head correlate lt.b with the lepton -- the missing

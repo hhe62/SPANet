@@ -169,6 +169,9 @@ class JetReconstructionValidation(JetReconstructionNetwork):
         for key in classifications:
             accuracy = (classifications[key] == classification_targets[key])
             self.log(f"CLASSIFICATION/{key}_accuracy", accuracy.mean(), sync_dist=True)
+            # Slash-free alias so ModelCheckpoint can monitor/name on it -- a "/"
+            # in a metric name is read as a subdirectory in the filename template.
+            self.log(f"validation_{key}_accuracy", accuracy.mean(), sync_dist=True)
 
         for name, value in metrics.items():
             if not np.isnan(value):
