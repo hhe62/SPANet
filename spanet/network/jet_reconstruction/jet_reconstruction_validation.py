@@ -171,7 +171,8 @@ class JetReconstructionValidation(JetReconstructionNetwork):
             self.log(f"CLASSIFICATION/{key}_accuracy", accuracy.mean(), sync_dist=True)
             # Slash-free alias so ModelCheckpoint can monitor/name on it -- a "/"
             # in a metric name is read as a subdirectory in the filename template.
-            self.log(f"validation_{key}_accuracy", accuracy.mean(), sync_dist=True)
+            # `key` carries the group ("EVENT/process_class"), so drop the slash.
+            self.log(f"validation_{key.replace('/', '_')}_accuracy", accuracy.mean(), sync_dist=True)
 
         for name, value in metrics.items():
             if not np.isnan(value):
