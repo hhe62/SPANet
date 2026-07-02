@@ -143,14 +143,14 @@ def main(
     callbacks = [
         ModelCheckpoint(
             verbose=options.verbose_output,
-            filename='{epoch}-{step}-{validation_average_jet_accuracy:.3f}',
-            monitor='validation_average_jet_accuracy',
+            # filename='{epoch}-{step}-{validation_average_jet_accuracy:.3f}',
+            # monitor='validation_average_jet_accuracy',
             # To checkpoint on 5-class process_class accuracy instead, comment the
             # two lines above and uncomment the two below. (The alias that logs
             # validation_EVENT_process_class_accuracy stays active in
             # jet_reconstruction_validation.py, so nothing else needs changing.)
-            # filename='{epoch}-{step}-{validation_EVENT_process_class_accuracy:.3f}',
-            # monitor='validation_EVENT_process_class_accuracy',
+            filename='{epoch}-{step}-{validation_EVENT_process_class_accuracy:.3f}',
+            monitor='validation_EVENT_process_class_accuracy',
             save_top_k=5,
             mode='max',
             save_last=True

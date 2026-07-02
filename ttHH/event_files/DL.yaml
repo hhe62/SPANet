@@ -26,12 +26,12 @@ INPUTS:
       m_closest_91:    log_normalize   # m_ij minimising |m_ij - 91|
       n_partner_higgs: none            # count of b-tag partners with m_ij in 125 ± 25
 
-      # Per-jet endpoint asymmetry (m - a)/(m + a) of m(jet, lepton), min and
-      # max over the 2 leptons, with a = sqrt(m_t^2 - m_W^2) = 152.75 GeV:
-      # a top b (with its lepton) is < 0, a Higgs b can exceed 0, bounded to
-      # (-1, 1). `none` keeps 0 at the endpoint (see convert_to_h5 momenta_m_lep_*).
-      m_lep_min: none
-      m_lep_max: none
+      # Per-jet invariant mass m(jet, lepton), min and max over the 2 leptons.
+      # A top b (with its lepton) sits below the endpoint sqrt(m_t^2 - m_W^2)
+      # = 152.75 GeV; a Higgs b runs higher. Raw mass in GeV -> log_normalize
+      # (like the other mass features).
+      m_lep_min: log_normalize
+      m_lep_max: log_normalize
 
     # Selected leptons (combined muons + electrons, sorted by pT desc).
     # DL events have exactly 2 real entries; SL events have 1. Adding
