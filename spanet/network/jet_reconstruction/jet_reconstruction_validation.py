@@ -136,9 +136,14 @@ class JetReconstructionValidation(JetReconstructionNetwork):
         # Apply permutation groups for each target
         for target, prediction, decoder in zip(stacked_targets, jet_predictions, self.branch_decoders):
             for indices in decoder.permutation_indices:
-                if len(indices) > 1:
-                    prediction[:, indices] = np.sort(prediction[:, indices])
-                    target[:, indices] = np.sort(target[:, indices])
+                # `indices` is a permutation as a list of CYCLES, e.g. [(0, 1)] for
+                # h -> (b1, b2). Canonicalize each symmetric cycle by sorting; the
+                # old `if len(indices) > 1` counted cycles (always 1), never firing.
+                for cycle in indices:
+                    if len(cycle) > 1:
+                        cycle = list(cycle)
+                        prediction[:, cycle] = np.sort(prediction[:, cycle])
+                        target[:, cycle] = np.sort(target[:, cycle])
 
         metrics.update(self.compute_metrics(jet_predictions, particle_scores, stacked_targets, stacked_masks, stacked_weights))
 
@@ -173,6 +178,15 @@ class JetReconstructionValidation(JetReconstructionNetwork):
             # in a metric name is read as a subdirectory in the filename template.
             # `key` carries the group ("EVENT/process_class"), so drop the slash.
             self.log(f"validation_{key.replace('/', '_')}_accuracy", accuracy.mean(), sync_dist=True)
+            # Balanced alias (mean per-class recall): the raw accuracy above is
+            # one-event-one-vote, so the majority class (ttH ~60% of validation)
+            # dominates it. This is the quantity balance_classifications actually
+            # optimizes; every class has O(100+) events per batch, so per-batch
+            # recalls are well-defined.
+            labels = classification_targets[key]
+            balanced = np.mean([(classifications[key][labels == c] == c).mean()
+                                for c in np.unique(labels)])
+            self.log(f"validation_{key.replace('/', '_')}_balanced_accuracy", balanced, sync_dist=True)
 
         for name, value in metrics.items():
             if not np.isnan(value):
