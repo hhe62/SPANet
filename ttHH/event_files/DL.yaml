@@ -33,6 +33,12 @@ INPUTS:
       m_lep_min: log_normalize
       m_lep_max: log_normalize
 
+      # Per-jet stransverse mass: min over b-tagged partners j and both lepton
+      # pairings of mT2(i+l, j+l'; MET). The MET-aware companion of m_lep_min:
+      # for the true top-b pair mT2 <= m_t up to resolution; Higgs b's leak
+      # above. Raw GeV -> log_normalize. (convert_to_h5 momenta_mT2_min)
+      mT2_min: log_normalize
+
     # Selected leptons (combined muons + electrons, sorted by pT desc).
     # DL events have exactly 2 real entries; SL events have 1. Adding
     # this collection lets the assignment head correlate each leptonic
