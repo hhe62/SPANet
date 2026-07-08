@@ -52,6 +52,19 @@ INPUTS:
       cos_phi: none
     HT:
       ht: log_normalize
+    # Event-shape globals from selected jets + leptons (classification-BDT
+    # inputs of the ttH(bb) searches; convert_to_h5 _event_shapes). Heavy
+    # tt+X is central/isotropic, tt+jets radiation forward/planar. All
+    # bounded O(1) quantities -> plain normalize.
+    Shape:
+      centrality: normalize
+      sphericity: normalize
+      aplanarity: normalize
+      fw_h1: normalize
+      fw_h2: normalize
+      dR_bb_avg: normalize
+      n_jets: normalize
+      n_bjets: normalize
 
 
 EVENT:
