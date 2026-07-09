@@ -114,10 +114,9 @@ REGRESSIONS:
     - neutrino2_px
     - neutrino2_py
     - neutrino2_pz
-    - log_invariant_mass
+    # - log_invariant_mass
 
 
 CLASSIFICATIONS:
   EVENT:
-    - signal
     - process_class     # 5-class super-group; one-word revert -> process_id
