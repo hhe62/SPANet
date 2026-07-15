@@ -143,18 +143,23 @@ def main(
     callbacks = [
         ModelCheckpoint(
             verbose=options.verbose_output,
-            # Currently checkpointing on BALANCED 5-class process_class accuracy
-            # (mean per-class recall; the raw-accuracy alias is majority-class
-            # dominated). To go back to jet-assignment accuracy, swap the
-            # commented/active pairs below. (All aliases stay logged in
-            # jet_reconstruction_validation.py either way.)
-            # filename='{epoch}-{step}-{validation_average_jet_accuracy:.3f}',
-            # monitor='validation_average_jet_accuracy',
+            # Classification-best checkpoints (balanced = mean per-class
+            # recall; the raw-accuracy alias is majority-class dominated).
             filename='{epoch}-{step}-{validation_EVENT_process_class_balanced_accuracy:.3f}',
             monitor='validation_EVENT_process_class_balanced_accuracy',
             save_top_k=5,
             mode='max',
             save_last=True
+        ),
+        # Assignment-best checkpoints, banked independently so the
+        # classification monitor never discards the jet-assignment optimum
+        # (they can peak at different epochs).
+        ModelCheckpoint(
+            verbose=options.verbose_output,
+            filename='assign-{epoch}-{step}-{validation_average_jet_accuracy:.3f}',
+            monitor='validation_average_jet_accuracy',
+            save_top_k=3,
+            mode='max'
         ),
         LearningRateMonitor(),
         DeviceStatsMonitor(),
