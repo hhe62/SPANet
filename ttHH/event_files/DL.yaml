@@ -14,7 +14,10 @@ INPUTS:
       sin_phi: none
       cos_phi: none
 
-      btag: none
+      # Era-comparable tagger features only (raw btag/cvb/cvl scores are
+      # tagger-scale-dependent and would fingerprint the era).
+      btag_tier: none
+      btag_rank: none
 
       # Per-jet pair-summary features (from draft/producers/pair_features.py).
       # Each value is in jet i's slot but is computed from i's b-tagged
